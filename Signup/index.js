@@ -20,5 +20,5 @@ const port=process.env.PORT;
 app.listen(port,()=>{
    
 
-    console.log(chalk.blue(`This app is running on localhost:${port}`))
+    console.log(chalk.bgCyan(`This app is running on localhost:${port}`))
 })
