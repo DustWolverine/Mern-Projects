@@ -1,7 +1,6 @@
 import bcrpyt from "bcrypt";
 import { validateUser,Myusers } from "../models/user.js";
-import verifyAccessToken from "../middleware/webtoken.js";
-import jwt from "jsonwebtoken";
+import createAccessToken from "../utility/token.js";
 
 
 
@@ -31,8 +30,7 @@ export const signUp=async(req,res)=>{
     
 }
 
-
-export const signIn=async(req,res)=>{
+export const signIn=async(req,res)=>{ 
   const {error}=validateUser(req.body);
     if(error){
         return res.status(400).json({status:false,msg:"Validation failed!!"})
@@ -47,7 +45,7 @@ export const signIn=async(req,res)=>{
     if(!passwordmatch){
         return res.status(400).json({status:false,msg:"Password did not match"})
     }
-     const token=verifyAccessToken({id:findUser._id});
+     const token=createAccessToken({id:findUser._id});
     delete findUser.password;
     return res.status(200).json({ token, user: findUser, status: true, msg: "Login successful" });
     } catch (error) {
